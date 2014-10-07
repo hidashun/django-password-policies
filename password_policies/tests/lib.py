@@ -1,7 +1,8 @@
 from datetime import timedelta
 from random import randint
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.test import TestCase

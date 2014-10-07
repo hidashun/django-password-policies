@@ -4,7 +4,8 @@ from django import forms
 from django.contrib.auth.hashers import is_password_usable
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import AdminPasswordChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.contrib.sites.models import get_current_site
 from django.core import signing
 from django.core.exceptions import ObjectDoesNotExist
