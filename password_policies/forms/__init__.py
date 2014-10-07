@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 
 from django import forms
 from django.contrib.auth.hashers import is_password_usable

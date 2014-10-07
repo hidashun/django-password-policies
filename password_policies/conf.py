@@ -30,15 +30,15 @@ Default settings for django-password-policies.
     #: Specifies a list of common sequences to attempt to
     #: match a password against.
     PASSWORD_COMMON_SEQUENCES = [
-        u"0123456789",
-        u"`1234567890-=",
-        u"~!@#$%^&*()_+",
-        u"abcdefghijklmnopqrstuvwxyz",
-        u"quertyuiop[]\\asdfghjkl;\'zxcvbnm,./",
-        u'quertyuiop{}|asdfghjkl;"zxcvbnm<>?',
-        u"quertyuiopasdfghjklzxcvbnm",
-        u"1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/-['=]\\",
-        u"qazwsxedcrfvtgbyhnujmikolp"
+        "0123456789",
+        "`1234567890-=",
+        "~!@#$%^&*()_+",
+        "abcdefghijklmnopqrstuvwxyz",
+        "quertyuiop[]\\asdfghjkl;\'zxcvbnm,./",
+        'quertyuiop{}|asdfghjkl;"zxcvbnm<>?',
+        "quertyuiopasdfghjklzxcvbnm",
+        "1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/-['=]\\",
+        "qazwsxedcrfvtgbyhnujmikolp"
     ]
     PASSWORD_DICTIONARY = None
     """

@@ -106,7 +106,7 @@ To use this middleware you need to add it to the
             else:
                 paths.append(r'^%s$' % logout_url)
             try:
-                logout_url = resolve(u'/admin/logout/')
+                logout_url = resolve('/admin/logout/')
             except Resolver404:
                 pass
             else:

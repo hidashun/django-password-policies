@@ -1,4 +1,4 @@
-from __future__ import division
+
 import itertools
 import math
 import unicodedata
@@ -49,10 +49,10 @@ defined in `RFC 4013`_.
 
 .. _`RFC 4013`: http://tools.ietf.org/html/rfc4013
 """
-    first = u''
+    first = ''
     invalid = True
     l_cat = False
-    last = u''
+    last = ''
     r_and_al_cat = False
 
     def __call__(self, value):
@@ -115,9 +115,9 @@ is greater than :py:attr:`~password_policies.conf.Settings.PASSWORD_MATCH_THRESH
             return m
 
         row1 = [0] * (n + 1)
-        for i in xrange(0, m):
+        for i in range(0, m):
             row2 = [i + 1]
-            for j in xrange(0, n):
+            for j in range(0, n):
                 cost = (needle[i] != haystack[j])
                 row2.append(min(row1[j + 1] + 1, row2[j] + 1, row1[j] + cost))
             row1 = row2
@@ -144,7 +144,7 @@ For more information read `RFC 4013, section 2.3`_.
 .. _`RFC 4013, section 2.3`: http://tools.ietf.org/html/rfc4013#section-2.3
 """
     #: The validator's error code.
-    code = u"invalid_bidirectional"
+    code = "invalid_bidirectional"
     #: The validator's error message.
     message = _("The new password contains ambiguious bidirectional characters.")
 
@@ -162,7 +162,7 @@ Validates that a given password is not based on a common sequence of characters.
     # Taken from django-passwords
 
     #: The validator's error code.
-    code = u"invalid_common_sequence"
+    code = "invalid_common_sequence"
     #: The validator's error message.
     message = _("The new password is based on a common sequence of characters.")
 
@@ -172,7 +172,7 @@ class ConsecutiveCountValidator(object):
 Validates that a given password does not contain consecutive characters.
 """
     #: The validator's error code.
-    code = u"invalid_consecutive_count"
+    code = "invalid_consecutive_count"
 
     def __call__(self, value):
         if not self.get_max_count():
@@ -203,7 +203,7 @@ class CracklibValidator(object):
 Validates a given password using Python bindings for cracklib.
 """
     #: The validator's error code.
-    code = u"invalid_cracklib"
+    code = "invalid_cracklib"
     #: This argument will change the default of 10 for the number
     #: of characters in the new password that must not be present
     #: in the old password. In addition, if 1/2 of the characters
@@ -241,7 +241,7 @@ Validates a given password using Python bindings for cracklib.
         crack.up_credit = self.up_credit
         try:
             crack.FascistCheck(value)
-        except ValueError, reason:
+        except ValueError as reason:
             reason = _(str(reason))
             message = _("Please choose a different password, %s." % reason)
             raise ValidationError(message, code=self.code)
@@ -264,7 +264,7 @@ the Shannon entropy of a password.
     # Taken from revelation
 
     #: The validator's error code.
-    code = u"invalid_entropy"
+    code = "invalid_entropy"
     #: Specifies the minimum entropy of long passwords
     #: (len(password) >= 100). Defaults to
     #: :py:attr:`password_policies.conf.Settings.PASSWORD_MIN_ENTROPY_LONG`.
@@ -325,7 +325,7 @@ Validates that a given password is not based on a dictionary word.
     # Taken from django-passwords
 
     #: The validator's error code.
-    code = u"invalid_dictionary_word"
+    code = "invalid_dictionary_word"
     #: A path to a file with one word per line. Defaults to
     #: :py:attr:`password_policies.conf.Settings.PASSWORD_DICTIONARY`.
     dictionary = ''
@@ -363,7 +363,7 @@ characters as defined in `RFC 4013, section 2.3`_.
 .. _`RFC 4013, section 2.3`: http://tools.ietf.org/html/rfc4013#section-2.3
 """
     #: The validator's error code.
-    code = u"invalid_unicode"
+    code = "invalid_unicode"
     #: The validator's error message.
     message = _("The new password contains invalid unicode characters.")
 
@@ -396,7 +396,7 @@ Nl    Number, Letter
 
 """
     #: The validator's error code.
-    code = u"invalid_letter_count"
+    code = "invalid_letter_count"
 
     def get_error_message(self):
         """
@@ -419,7 +419,7 @@ class NotEmailValidator(object):
 Validates that a given password is not similar to an email address.
 """
     #: The validator's error code.
-    code = u"invalid_email_used"
+    code = "invalid_email_used"
     #: The validator's error message.
     message = _("The new password is similar to an email address.")
     user_regex = re.compile(
@@ -475,7 +475,7 @@ No    Number, Other
 
 """
     #: The validator's error code.
-    code = u"invalid_number_count"
+    code = "invalid_number_count"
 
     def get_error_message(self):
         """
@@ -528,7 +528,7 @@ Zl    Separator, Line
 
 """
     #: The validator's error code.
-    code = u"invalid_symbol_count"
+    code = "invalid_symbol_count"
 
     def get_error_message(self):
         """
