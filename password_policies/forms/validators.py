@@ -7,7 +7,7 @@ import stringprep
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext
@@ -348,7 +348,7 @@ Validates that a given password is not based on a dictionary word.
         if self.dictionary:
             with open(self.dictionary) as dictionary:
                 haystacks.extend(
-                    [smart_unicode(x.strip()) for x in dictionary.readlines()]
+                    [smart_text(x.strip()) for x in dictionary.readlines()]
                 )
         if self.words:
             haystacks.extend(self.words)
