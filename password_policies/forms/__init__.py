@@ -1,14 +1,15 @@
-
+from __future__ import unicode_literals
 
 from django import forms
-from django.contrib.auth.hashers import is_password_usable
+try:
+    from django.contrib.auth.hashers import UNUSABLE_PASSWORD
+except ImportError:
+    from django.contrib.auth.hashers import UNUSABLE_PASSWORD_PREFIX
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import AdminPasswordChangeForm
-from django.contrib.auth import get_user_model
-User = get_user_model()
+from django.contrib.auth.models import User
 from django.contrib.sites.models import get_current_site
 from django.core import signing
-from django.core.exceptions import ObjectDoesNotExist
 from django.template import loader
 from django.utils.datastructures import SortedDict
 from django.utils.http import int_to_base36
@@ -148,9 +149,9 @@ Validates that old and new password are not too similar.
     def save(self, commit=True):
         user = super(PasswordPoliciesChangeForm, self).save(commit=commit)
         try:
-            if user.password_change_required:
-                user.password_change_required.delete()
-        except ObjectDoesNotExist:
+            if user.password_change_required.count():
+                user.password_change_required.all().delete()
+        except PasswordChangeRequired.DoesNotExist:
             pass
         return user
 
@@ -173,7 +174,7 @@ Has the following fields and methods:
         'unusable': _("The user account associated with this e-mail "
                       "address cannot reset the password."),
     }
-    # TODO: Help text?
+    #TODO: Help text?
     email = forms.EmailField(label=_("E-mail"), max_length=75, help_text='help')
 
     def clean_email(self):
@@ -185,7 +186,7 @@ Validates that an active user exists with the given email address.
                                                is_active=True)
         if not len(self.users_cache):
             raise forms.ValidationError(self.error_messages['unknown'])
-        if any(not is_password_usable(user.password)
+        if any((user.password == UNUSABLE_PASSWORD)
                for user in self.users_cache):
             raise forms.ValidationError(self.error_messages['unusable'])
         return email
